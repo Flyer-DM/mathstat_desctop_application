@@ -1,8 +1,11 @@
 from tkinter import *
 from statistics import mean, median
+
+
 window = Tk()
 window.geometry('300x140')
 window.title("Добро пожаловать в приложение!")
+
 
 def EMP():
     newWindow = Toplevel(window)
@@ -12,6 +15,7 @@ def EMP():
     labelExample.pack()
     buttonExample.pack()
 
+
 def TOUCH_OC():
     newWindow = Toplevel(window)
     newWindow.geometry('600x500')
@@ -20,6 +24,7 @@ def TOUCH_OC():
     labelExample.pack()
     buttonExample.pack()
 
+
 def INTERVAL_OC():
     newWindow = Toplevel(window)
     newWindow.geometry('600x500')
@@ -27,6 +32,7 @@ def INTERVAL_OC():
     buttonExample = Button(newWindow, text="New Window button")
     labelExample.pack()
     buttonExample.pack()
+
 
 def DOV_INTER():
     newWindow = Toplevel(window)
@@ -38,13 +44,13 @@ def DOV_INTER():
     buttonExample2 = Button(newWindow,text="Рассчитать доверительный интервал, если вы ",command=DOV_INTER1)
     buttonExample2.pack()
 
+
 def DOV_INTER1():
     def get_text():
         res = "Ваша введённая выборка:{}".format(txt.get())
         res2 = "{}".format(txt.get())
         res3 = res2.split()
         res4 = list(map(int, res3))
-        print(res4)
         Mean_A = mean(res4)  # Поиск среднего значения с помощью библиотеки statistics
         lbl2.configure(text=res)
         lbl3 = Label(newWindow, text="Кол-во элементов выборки = " + str(len(res3)))
@@ -77,6 +83,7 @@ def SR_KV():
     labelExample.pack()
     buttonExample.pack()
 
+
 def GIP():
     newWindow = Toplevel(window)
     newWindow.geometry('600x500')
@@ -84,6 +91,7 @@ def GIP():
     buttonExample = Button(newWindow, text="New Window button")
     labelExample.pack()
     buttonExample.pack()
+
 
 btn1 = Button(window,text = "Эмпирические характеристики",command = EMP)
 btn1.pack()
