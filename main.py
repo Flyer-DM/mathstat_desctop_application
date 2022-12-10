@@ -4,8 +4,12 @@ from math import sqrt
 
 
 window = Tk()
-window.geometry('300x140')
-window.title("Добро пожаловать в приложение!")
+logo = PhotoImage(file='math.png')
+window.geometry('370x155')
+window.iconphoto(False, logo)
+window.config(bg='#E6E6FA')
+window.resizable(False, False)
+window.title("Типовые задания по мат статистике.")
 
 
 def EMP():
@@ -104,8 +108,6 @@ def DOV_INTER1():
     btn.grid(column=2, row=0)
 
 
-
-
 def SR_KV():
     newWindow = Toplevel(window)
     newWindow.geometry('600x500')
@@ -124,18 +126,13 @@ def GIP():
     buttonExample.pack()
 
 
-btn1 = Button(window,text = "Эмпирические характеристики",command = EMP)
-btn1.pack()
-btn2 = Button(window,text = "Точечные оценки",command = TOUCH_OC)
-btn2.pack()
-btn3 = Button(window,text = "Интервальные оценки",command = INTERVAL_OC)
-btn3.pack()
-btn4 = Button(window,text = "Доверительные интервалы",command = DOV_INTER)
-btn4.pack()
-btn5 = Button(window,text = "среднее кв отклонение",command = SR_KV)
-btn5.pack()
-btn5 = Button(window,text = "Гипотезы",command = GIP)
-btn5.pack()
+Button(window, text="Эмпирические характеристики", command=EMP, relief=GROOVE).grid(column=0, row=0, sticky=W)
+Button(window, text="Точечные оценки", command=TOUCH_OC, relief=GROOVE).grid(column=0, row=1, sticky=W)
+Button(window, text="Интервальные оценки", command=INTERVAL_OC, relief=GROOVE).grid(column=0, row=2, sticky=W)
+Button(window, text="Доверительные интервалы", command=DOV_INTER, relief=GROOVE).grid(column=0, row=3, sticky=W)
+Button(window, text="Среднее кв. отклонение", command=SR_KV, relief=GROOVE).grid(column=0, row=4, sticky=W)
+Button(window, text="Гипотезы", command=GIP, relief=GROOVE).grid(column=0, row=5, sticky=W)
 
 
-window.mainloop()
+if __name__ == '__main__':
+    window.mainloop()
