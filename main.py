@@ -48,6 +48,8 @@ def DOV_INTER():
     buttonExample1.pack()
     buttonExample2 = Button(newWindow,text="Рассчитать доверительный интервал",command=DOV_INTER2)
     buttonExample2.pack()
+    buttonExample3 = Button(newWindow, text="Рассчитать 0,95-доверительный интервал для математического ожидания недельной доходности выбранной акции.", command=DOV_INTER3)
+    buttonExample3.pack()
 
 
 def DOV_INTER1():
@@ -55,7 +57,7 @@ def DOV_INTER1():
         res = "Ваша введённая выборка:{}".format(txt.get())
         res2 = "{}".format(txt.get())
         res3 = res2.split()
-        res4 = list(map(int, res3))
+        res4 = list(map(float, res3))
         Mean_A = mean(res4)  # Поиск среднего значения с помощью библиотеки statistics
         Sorted_A = sorted(res4)
         Median_A = median(Sorted_A)
@@ -107,7 +109,7 @@ def DOV_INTER2():
         res = "Ваша введённая выборка:{}".format(txt.get())
         res2 = "{}".format(txt.get())
         res3 = res2.split()
-        res4 = list(map(int, res3))
+        res4 = list(map(float, res3))
         Mean_A = mean(res4)  # Поиск среднего значения с помощью библиотеки statistics
         Sorted_A = sorted(res4)
         Median_A = median(Sorted_A)
@@ -119,7 +121,6 @@ def DOV_INTER2():
             D += ((i - Mean_A) ** 2)  # D = значение массива - среднее значение и всё это в степени 2 и результат прибавляется к D до тех пор пока элементы в выборке не закончатся
         Disper_A = D / len(res4)  # D делим на количество элементов выборки A и находим дисперсию
         KV_A = sqrt(Disper_A)  # С помощью sqrt из библиотеки math, извлекаем корень из дисперсии и находим средне квадратическое отклонение
-
 
         Result2_min = Median_A - KV_A
         Result2_max = Median_A + KV_A
@@ -152,6 +153,51 @@ def DOV_INTER2():
     lbl2.grid(column=3, row=0)
 
     btn = Button(newWindow, text="Подтвердить", command = get_text2)
+    btn.grid(column=2, row=0)
+
+def DOV_INTER3():
+    def get_text():
+        res = "Ваше значение n = {}".format(txt.get())
+        n = int("{}".format(txt.get()))
+        print(n)
+        r = float("{}".format(txt2.get()))
+        srkv = float("{}".format(txt3.get()))
+        leftres = r - 1.96 * (srkv/sqrt(n))
+        rightres = r + 1.96 * (srkv/sqrt(n))
+
+        lbl33.configure(text=res)
+        lbl4 = Label(newWindow, text="r = " + str(r))
+        lbl4.grid(column=3, row=1)
+        lbl5 = Label(newWindow, text="ср. кв. отклонение = " + str(srkv))
+        lbl5.grid(column=3, row=2)
+
+        lbl9 = Label(newWindow, text="Доверительный интервал = [" + str(round(leftres,9)) + ", " + str(round(rightres,9)) + "]")
+        lbl9.grid(column=0, row=7)
+
+    newWindow = Toplevel(window)
+    newWindow.geometry('600x500')
+    lbl = Label(newWindow, text="Введите n")
+    lbl.grid(column=0, row=0)
+
+    txt = Entry(newWindow, width=10)
+    txt.grid(column=1, row=0)
+
+    lbl2 = Label(newWindow, text="Введите r")
+    lbl2.grid(column=0, row=1)
+
+    txt2 = Entry(newWindow, width=10)
+    txt2.grid(column=1, row=1)
+
+    lbl3 = Label(newWindow, text="Введите ср. кв. отклонение")
+    lbl3.grid(column=0, row=2)
+
+    txt3 = Entry(newWindow, width=10)
+    txt3.grid(column=1, row=2)
+
+    lbl33 = Label(newWindow, text="Ваши значения:")
+    lbl33.grid(column=3, row=0)
+
+    btn = Button(newWindow, text="Подтвердить", command = get_text)
     btn.grid(column=2, row=0)
 
 def SR_KV():
