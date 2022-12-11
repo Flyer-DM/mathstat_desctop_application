@@ -14,16 +14,112 @@ window.title("Типовые задания по мат статистике.")
 
 def EMP():
     def get_text():
-        res = "Ваша введённая выборка:{}".format(txt.get())
-        res2 = "{}".format(txt.get())
-        res3 = res2.split()
-        res4 = list(map(float, res3))
+        y1 = int("{}".format(ytxt.get()))  # Получение всех Y
+        y2 = int("{}".format(ytxt2.get()))
+        y3 = int("{}".format(ytxt3.get()))
+        n1 = int("{}".format(txt.get()))  # Получение всех значений
+        n2 = int("{}".format(txt1.get()))
+        n3 = int("{}".format(txt2.get()))
+        n4 = int("{}".format(txt3.get()))
+        n5 = int("{}".format(txt4.get()))
+        n6 = int("{}".format(txt5.get()))
+        n7 = int("{}".format(txt6.get()))
+        n8 = int("{}".format(txt7.get()))
+        n9 = int("{}".format(txt8.get()))
+        n10 = int("{}".format(txt9.get()))
+        n11 = int("{}".format(txt10.get()))
+        n12 = int("{}".format(txt11.get()))
+        x1 = int("{}".format(xtxt.get()))  # Получение всех X
+        x2 = int("{}".format(xtxt2.get()))
+        x3 = int("{}".format(xtxt3.get()))
+        x4 = int("{}".format(xtxt4.get()))
+        N = int("{}".format(ntxt.get()))  # Получение N
+        x1_all = n1 + n2 + n3  # Сумма колонки x1
+        x2_all = n4 + n5 + n6  # Сумма колонки x2
+        x3_all = n7 + n8 + n9  # Сумма колонки x3
+        x4_all = n10 + n11 + n12  # Сумма колонки x4
+        y1_all = n1 + n4 + n7 + n10  # Сумма колонки y1
+        y2_all = n2 + n5 + n8 + n11  # Сумма колонки y2
+        y3_all = n3 + n6 + n9 + n12  # Сумма колонки y3
+        sr_x = (1/N) * (x1 * x1_all + x2 * x2_all + x3 * x3_all + x4 * x4_all)  # Среднее значение X
+        D_x = (1/N) * ((((x1 - sr_x)**2) * x1_all) + (((x2 - sr_x)**2) * x2_all) + (((x3 - sr_x)**2) * x3_all) + (((x4 - sr_x)**2) * x4_all))  # Эмпирическая дисперсия X
+        sr_y = (1/N) * (y1 * y1_all + y2 * y2_all + y3 * y3_all)  # Среднее значение Y
+        D_y = (1/N) * ((((y1 - sr_y)**2) * y1_all) + (((y2 - sr_y)**2) * y2_all) + (((y3 - sr_y)**2) * y3_all))  # Эмпирическая дисперсия Y
+        COV = (((x1 - sr_x)*(y1 - sr_y)*n1) + ((x2 - sr_x)*(y1 - sr_y)*n4) + ((x3 - sr_x)*(y1 - sr_y)*n7) + ((x4 - sr_x)*(y1 - sr_y)*n10) + ((x1 - sr_x)*(y2 - sr_y)*n2) + ((x2 - sr_x)*(y2 - sr_y)*n5) + ((x3 - sr_x)*(y2 - sr_y)*n8) + ((x4 - sr_x)*(y2 - sr_y)*n11) + ((x1 - sr_x)*(y3 - sr_y)*n3) + ((x2 - sr_x)*(y3 - sr_y)*n6) + ((x3 - sr_x)*(y3 - sr_y)*n9) + ((x4 - sr_x)*(y3 - sr_y)*n12))/N  # Ковариация
+        p = COV/sqrt(D_x * D_y)  # Эмпирический коэффициент корреляции
+
+        lbl = Label(newWindow, text="Значение X:")  # Частотные распределения признаков X
+        lbl.grid(column=0, row=4)
+        lbl2 = Label(newWindow, text=str(x1))
+        lbl2.grid(column=1, row=4)
+        lbl3 = Label(newWindow, text=str(x2))
+        lbl3.grid(column=2, row=4)
+        lbl4 = Label(newWindow, text=str(x3))
+        lbl4.grid(column=3, row=4)
+        lbl5 = Label(newWindow, text=str(x4))
+        lbl5.grid(column=4, row=4)
+        lbl6 = Label(newWindow, text="Частота:")
+        lbl6.grid(column=0, row=5)
+        lbl7 = Label(newWindow, text=str(x1_all))
+        lbl7.grid(column=1, row=5)
+        lbl8 = Label(newWindow, text=str(x2_all))
+        lbl8.grid(column=2, row=5)
+        lbl9 = Label(newWindow, text=str(x3_all))
+        lbl9.grid(column=3, row=5)
+        lbl10 = Label(newWindow, text=str(x4_all))
+        lbl10.grid(column=4, row=5)
+
+        lbl_empty = Label(newWindow, text="")  # Пустая строчка для разделения частотных признаков между собой
+        lbl_empty.grid(column=0, row=6)
+
+        lbl11 = Label(newWindow, text="Значение Y:")  # Частотные распределения признаков Y
+        lbl11.grid(column=0, row=7)
+        lbl12 = Label(newWindow, text=str(y1))
+        lbl12.grid(column=1, row=7)
+        lbl13 = Label(newWindow, text=str(y2))
+        lbl13.grid(column=2, row=7)
+        lbl14 = Label(newWindow, text=str(y3))
+        lbl14.grid(column=3, row=7)
+        lbl15 = Label(newWindow, text="Частота:")
+        lbl15.grid(column=0, row=8)
+        lbl16 = Label(newWindow, text=str(y1_all))
+        lbl16.grid(column=1, row=8)
+        lbl17 = Label(newWindow, text=str(y2_all))
+        lbl17.grid(column=2, row=8)
+        lbl18 = Label(newWindow, text=str(y3_all))
+        lbl18.grid(column=3, row=8)
+
+        lbl_empty2 = Label(newWindow, text="")  # Пустая строчка для разделения частотных признаков и эмпирических характеристик
+        lbl_empty2.grid(column=0, row=9)
+
+        lbl19 = Label(newWindow, text="ср. x = " + str(sr_x))  # Среднее значение X
+        lbl19.grid(column=0, row=10)
+        lbl20 = Label(newWindow, text="ср. y = " + str(sr_y))  # Среднее значение Y
+        lbl20.grid(column=0, row=11)
+        lbl21 = Label(newWindow, text="D(X) = " + str(D_x))  # Эмпирическая дисперсия по X
+        lbl21.grid(column=0, row=12)
+        lbl22 = Label(newWindow, text="D(Y) = " + str(D_y))  # Эмпирическая дисперсия по Y
+        lbl22.grid(column=0, row=13)
+        lbl23 = Label(newWindow, text="COV(X,Y) = " + str(COV))  # Эмпирическая ковариация
+        lbl23.grid(column=0, row=14)
+        lbl24 = Label(newWindow, text="p(X,Y) = " + str(p))  # Эмпирический коэффициент корреляции
+        lbl24.grid(column=0, row=15)
+
+        lbl_empty3 = Label(newWindow, text="") # Пустая строчка для разделения эмпирических характеристик и ответа
+        lbl_empty3.grid(column=0, row=16)
+
+        lbl24 = Label(newWindow, text="Ответ: Эмпирический коэффициент корреляции = " + str(p))  # Ответ
+        lbl24.grid(column=0, row=17)
+
     newWindow = Toplevel(window)
-    newWindow.geometry('950x500')
+    newWindow.geometry('1000x500')
     lbl = Label(newWindow, text="Введите значения:")
     lbl.grid(column=0, row=0)
 
-    ytxt = Entry(newWindow, width=10)
+    lblt = Label(newWindow, text="Y  /  X")
+    lblt.grid(column=1, row=0)
+
+    ytxt = Entry(newWindow, width=10) # Entry по Y
     ytxt.grid(column=1, row=1)
 
     ytxt2 = Entry(newWindow, width=10)
@@ -32,7 +128,7 @@ def EMP():
     ytxt3 = Entry(newWindow, width=10)
     ytxt3.grid(column=1, row=3)
 
-    txt = Entry(newWindow, width=10)
+    txt = Entry(newWindow, width=10) # Entry по всем значениям
     txt.grid(column=2, row=1)
 
     txt1 = Entry(newWindow, width=10)
@@ -68,7 +164,7 @@ def EMP():
     txt11 = Entry(newWindow, width=10)
     txt11.grid(column=5, row=3)
 
-    xtxt = Entry(newWindow, width=10)
+    xtxt = Entry(newWindow, width=10) # Entry по X
     xtxt.grid(column=2, row=0)
 
     xtxt2 = Entry(newWindow, width=10)
@@ -80,8 +176,14 @@ def EMP():
     xtxt4 = Entry(newWindow, width=10)
     xtxt4.grid(column=5, row=0)
 
+    lbln = Label(newWindow, text="Введите значение n:")
+    lbln.grid(column=6, row=0)
+
+    ntxt = Entry(newWindow, width=10) # Entry по значению n
+    ntxt.grid(column=7, row=0)
+
     btn = Button(newWindow, text="Подтвердить", command=get_text)
-    btn.grid(column=6, row=0)
+    btn.grid(column=8, row=0)
 
 
 def TOUCH_OC():
@@ -234,7 +336,7 @@ def DOV_INTER3():
         lbl5 = Label(newWindow, text="ср. кв. отклонение = " + str(srkv))
         lbl5.grid(column=3, row=2)
 
-        lbl9 = Label(newWindow, text="Доверительный интервал = [" + str(round(leftres,9)) + ", " + str(round(rightres,9)) + "]")
+        lbl9 = Label(newWindow, text="Доверительный интервал = [" + str(round(leftres,9)) + ",0," + str(round(rightres,9)) + "]")
         lbl9.grid(column=0, row=7)
 
     newWindow = Toplevel(window)
