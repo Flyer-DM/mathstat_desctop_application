@@ -13,12 +13,75 @@ window.title("Типовые задания по мат статистике.")
 
 
 def EMP():
+    def get_text():
+        res = "Ваша введённая выборка:{}".format(txt.get())
+        res2 = "{}".format(txt.get())
+        res3 = res2.split()
+        res4 = list(map(float, res3))
     newWindow = Toplevel(window)
-    newWindow.geometry('600x500')
-    labelExample = Label(newWindow, text="New Window")
-    buttonExample = Button(newWindow, text="New Window button")
-    labelExample.pack()
-    buttonExample.pack()
+    newWindow.geometry('950x500')
+    lbl = Label(newWindow, text="Введите значения:")
+    lbl.grid(column=0, row=0)
+
+    ytxt = Entry(newWindow, width=10)
+    ytxt.grid(column=1, row=1)
+
+    ytxt2 = Entry(newWindow, width=10)
+    ytxt2.grid(column=1, row=2)
+
+    ytxt3 = Entry(newWindow, width=10)
+    ytxt3.grid(column=1, row=3)
+
+    txt = Entry(newWindow, width=10)
+    txt.grid(column=2, row=1)
+
+    txt1 = Entry(newWindow, width=10)
+    txt1.grid(column=2, row=2)
+
+    txt2 = Entry(newWindow, width=10)
+    txt2.grid(column=2, row=3)
+
+    txt3 = Entry(newWindow, width=10)
+    txt3.grid(column=3, row=1)
+
+    txt4 = Entry(newWindow, width=10)
+    txt4.grid(column=3, row=2)
+
+    txt5 = Entry(newWindow, width=10)
+    txt5.grid(column=3, row=3)
+
+    txt6 = Entry(newWindow, width=10)
+    txt6.grid(column=4, row=1)
+
+    txt7 = Entry(newWindow, width=10)
+    txt7.grid(column=4, row=2)
+
+    txt8 = Entry(newWindow, width=10)
+    txt8.grid(column=4, row=3)
+
+    txt9 = Entry(newWindow, width=10)
+    txt9.grid(column=5, row=1)
+
+    txt10 = Entry(newWindow, width=10)
+    txt10.grid(column=5, row=2)
+
+    txt11 = Entry(newWindow, width=10)
+    txt11.grid(column=5, row=3)
+
+    xtxt = Entry(newWindow, width=10)
+    xtxt.grid(column=2, row=0)
+
+    xtxt2 = Entry(newWindow, width=10)
+    xtxt2.grid(column=3, row=0)
+
+    xtxt3 = Entry(newWindow, width=10)
+    xtxt3.grid(column=4, row=0)
+
+    xtxt4 = Entry(newWindow, width=10)
+    xtxt4.grid(column=5, row=0)
+
+    btn = Button(newWindow, text="Подтвердить", command=get_text)
+    btn.grid(column=6, row=0)
 
 
 def TOUCH_OC():
