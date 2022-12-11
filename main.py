@@ -66,8 +66,7 @@ def DOV_INTER1():
         for i in res4:  # Для каждого элемента в массиве A
             D += ((i - Mean_A) ** 2)  # D = значение массива - среднее значение и всё это в степени 2 и результат прибавляется к D до тех пор пока элементы в выборке не закончатся
         Disper_A = D / len(res4)  # D делим на количество элементов выборки A и находим дисперсию
-        KV_A = sqrt(
-            Disper_A)  # С помощью sqrt из библиотеки math, извлекаем корень из дисперсии и находим средне квадратическое отклонение
+        KV_A = sqrt(Disper_A)  # С помощью sqrt из библиотеки math, извлекаем корень из дисперсии и находим средне квадратическое отклонение
         Ocen = (2.33 * KV_A) / sqrt(len(res4))  # Находим точность оценки, при надёжности оценки 0.98
 
         Result1_min = Mean_A - Ocen
@@ -86,7 +85,7 @@ def DOV_INTER1():
         lbl7.grid(column=0, row=5)
         lbl8 = Label(newWindow, text="Среднее квадратическое отклонение = " + str(round(KV_A,2)))
         lbl8.grid(column=0, row=6)
-        lbl9 = Label(newWindow, text="Доверительный интервал = " + str(round(Result1_min,2)) + ", " + str(round(Result1_max,2)))
+        lbl9 = Label(newWindow, text="Доверительный интервал = [" + str(round(Result1_min,2)) + ", " + str(round(Result1_max,2)) + "]")
         lbl9.grid(column=0, row=7)
 
     newWindow = Toplevel(window)
@@ -138,7 +137,7 @@ def DOV_INTER2():
         lbl7.grid(column=0, row=5)
         lbl8 = Label(newWindow, text="Среднее квадратическое отклонение = " + str(round(KV_A,2)))
         lbl8.grid(column=0, row=6)
-        lbl9 = Label(newWindow, text="Доверительный интервал = " + str(round(Result2_min,2)) + ", " + str(round(Result2_max,2)))
+        lbl9 = Label(newWindow, text="Доверительный интервал = [" + str(round(Result2_min,2)) + ", " + str(round(Result2_max,2))+"]")
         lbl9.grid(column=0, row=7)
 
     newWindow = Toplevel(window)
