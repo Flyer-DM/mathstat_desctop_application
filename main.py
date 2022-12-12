@@ -365,13 +365,44 @@ def DOV_INTER3():
     btn = Button(newWindow, text="Подтвердить", command = get_text)
     btn.grid(column=2, row=0)
 
-def SR_KV():
+
+def variance_analysis():
+    """Однофакторный дисперсионный анализ"""
+    def solve():
+        data = {int(i.split(' - ')[0]): [int(j) for j in i.split(' - ')[1].split(', ')] for i in
+                txt_input.get().split('; ')}
+        n, k = len([data[i] for i in data][0]), len(data)
+        squeres = []
+        for i in data.values():
+            squeres.extend(i)
+        squeres = list(map(lambda x: x ** 2, squeres))
+        x_means = [round(sum(data[i]) / len(data[i]), 4) for i in data]
+        gen_x_mean = round(sum(x_means) / k, 4)
+        Q = round(sum(squeres) - n * k * gen_x_mean ** 2, 4)
+        Qa = round(n * sum(map(lambda x: x ** 2, x_means)) - n * k * gen_x_mean ** 2, 4)
+        Qe = Q - Qa
+        F = round((Qa / (k - 1)) / (Qe / ( k * (n - 1))), 4)
+        Label(newWindow, text="Резульат: выборочное значение статистики Фишера равно " + str(F)).grid(column=0, row=3,
+                                                                                                      sticky=W)
+        Label(newWindow, text=f"Квантиль распределения при {(k-1)=}, {k*(n-1)=} см. по таблице").grid(column=0, row=4,
+                                                                                                      sticky=W)
+        Label(newWindow, text=f"Если F < Fa, гипотеза H0 принимается, иначе - отклоняется").grid(column=0, row=5,
+                                                                                                 sticky=W)
+
+
     newWindow = Toplevel(window)
-    newWindow.geometry('600x500')
-    labelExample = Label(newWindow, text="New Window")
-    buttonExample = Button(newWindow, text="New Window button")
-    labelExample.pack()
-    buttonExample.pack()
+    newWindow.geometry('745x500')
+    newWindow.title("Однофакторный дисперсионный анализ")
+    text = """Проверяется нулевая гипотеза H0 об отсутствии влияния на результативный признак X некоторого фактора A,
+           имеющего k уровней. Сопостовляется дисперсия за счёт воздействия фактора A с дисперсией, обусловленной
+           случайными причинами. Если различие несущественно, то влияние фактора А на признак Х незначительно. Вводите
+           данные в формате уровень фактора - наблюдения через запятую."""
+    Label(newWindow, text=text).grid(column=0, row=0, sticky=W)
+    Label(newWindow, text="Введите значения в формате \"k1 - x1, x2, ...; k2 - x1, x2, ...\" :").grid(column=0, row=1,
+                                                                                                      sticky=W)
+    txt_input = Entry(newWindow, width=60)
+    txt_input.grid(column=0, row=2, sticky=W)
+    Button(newWindow, text="Решить", command=solve).grid(column=1, row=2, sticky=W)
 
 
 def GIP():
@@ -387,7 +418,9 @@ Button(window, text="Эмпирические характеристики", com
 Button(window, text="Точечные оценки", command=TOUCH_OC, relief=GROOVE).grid(column=0, row=1, sticky=W)
 Button(window, text="Интервальные оценки", command=INTERVAL_OC, relief=GROOVE).grid(column=0, row=2, sticky=W)
 Button(window, text="Доверительные интервалы", command=DOV_INTER, relief=GROOVE).grid(column=0, row=3, sticky=W)
-Button(window, text="Среднее кв. отклонение", command=SR_KV, relief=GROOVE).grid(column=0, row=4, sticky=W)
+Button(window, text="Однофакторный дисперсионный анализ", command=variance_analysis, relief=GROOVE).grid(column=0,
+                                                                                                         row=4,
+                                                                                                         sticky=W)
 Button(window, text="Гипотезы", command=GIP, relief=GROOVE).grid(column=0, row=5, sticky=W)
 
 
