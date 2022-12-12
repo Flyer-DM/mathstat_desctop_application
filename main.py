@@ -5,7 +5,7 @@ from math import sqrt
 
 window = Tk()
 logo = PhotoImage(file='math.png')
-window.geometry('370x185')
+window.geometry('370x210')
 window.iconphoto(False, logo)
 window.config(bg='#E6E6FA')
 window.resizable(False, False)
@@ -535,6 +535,50 @@ def xi_square():
     Button(newWindow, text="Решить", command=solve).place(x=365, y=99)
 
 
+def dispersions():
+    """Расчёт общей, групповой, внутригрупповой и межгрупповой дисперсий"""
+    def solve():
+        solved1, solved2, solved3, solved4 = Label(newWindow), Label(newWindow), Label(newWindow), Label(newWindow)
+        try:
+            data = {float(i.split(' - ')[0]): [float(j) for j in i.split(' - ')[1].split(', ')] for i in
+                    txt_input.get().split('; ')}
+            n = sum([len(data[i]) for i in data])
+            data_sums = [(i, sum(data[i])) for i in data]
+            data_ns = [(i, len(data[i])) for i in data]
+            data_means = [(i[0][0], round(i[0][1] / i[1][1], 4)) for i in zip(data_sums, data_ns)]
+            data_dev_sums = [(i[0][0], round(sum(map(lambda x: (x - i[1][1]) ** 2, i[0][1])), 4))
+                             for i in zip(data.items(), data_means)]
+            data_deviations = [(i[0][0], round(i[0][1] / i[1][1], 4)) for i in zip(data_dev_sums, data_ns)]
+            str_data_devs = "; ".join([f"группа {i[0]} - {i[1]}" for i in data_deviations])
+            inner_desp = round(sum([i[1] for i in data_dev_sums]) / n, 4)
+            mean = sum([sum(data[i]) for i in data]) / n
+            general_disp = sum([sum(map(lambda x: (x - mean) ** 2, data[i])) for i in data]) / n
+            between_desp = round(sum([(i[1] - mean) ** 2 for i in data_means]) / n, 4)
+            solved1['text'] = f"Общая дисперсия: {general_disp}" + " " * 50
+            solved2['text'] = f"Групповые дисперсии: {str_data_devs}"
+            solved3['text'] = f"Внутригрупповая дисперсия: {inner_desp}"
+            solved4['text'] = f"Межгрупповая дисперсия: {between_desp}"
+        except (ValueError, IndexError, ZeroDivisionError):
+            solved1['text'] = "Ошибка ввода, попробуйте ещё раз." + " " * 100
+            solved2['text'], solved3['text'], solved4['text'] = " " * 150, " " * 150, " " * 150
+        finally:
+            solved1.grid(column=0, row=3, sticky=W)
+            solved2.grid(column=0, row=4, sticky=W)
+            solved3.grid(column=0, row=5, sticky=W)
+            solved4.grid(column=0, row=6, sticky=W)
+    newWindow = Toplevel(window)
+    newWindow.geometry('830x600')
+    newWindow.title("Расчёт всех видов дисперсий")
+    text = """Для расчёт общей, групповой, внутригрупповой и межгрупповой дисперсий нужно ввести значения в формате
+    группа - элементы группы через запятую."""
+    Label(newWindow, text=text).grid(column=0, row=0, sticky=W)
+    Label(newWindow, text="Введите значения в формате \"k1 - x1, x2, ...; k2 - x1, x2, ...\" :").grid(column=0, row=1,
+                                                                                                      sticky=W)
+    txt_input = Entry(newWindow, width=60)
+    txt_input.grid(column=0, row=2, sticky=W)
+    Button(newWindow, text="Решить", command=solve).place(x=365, y=54)
+
+
 Button(window, text="Эмпирические характеристики", command=EMP, relief=GROOVE).grid(column=0, row=0, sticky=W)
 Button(window, text="Точечные оценки", command=point_estimates, relief=GROOVE).grid(column=0, row=1, sticky=W)
 Button(window, text="Интервальные оценки", command=INTERVAL_OC, relief=GROOVE).grid(column=0, row=2, sticky=W)
@@ -544,6 +588,7 @@ Button(window, text="Однофакторный дисперсионный ан�
                                                                                                          sticky=W)
 Button(window, text="Критерий хи-квадрат Пирсона", command=xi_square, relief=GROOVE).grid(column=0, row=5, sticky=W)
 Button(window, text="Гипотезы", command=GIP, relief=GROOVE).grid(column=0, row=6, sticky=W)
+Button(window, text="Расчёт всех видов дисперсий", command=dispersions, relief=GROOVE).grid(column=0, row=7, sticky=W)
 
 
 if __name__ == '__main__':
