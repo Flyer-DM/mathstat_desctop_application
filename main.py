@@ -5,7 +5,7 @@ from math import sqrt
 
 window = Tk()
 logo = PhotoImage(file='math.png')
-window.geometry('370x155')
+window.geometry('370x185')
 window.iconphoto(False, logo)
 window.config(bg='#E6E6FA')
 window.resizable(False, False)
@@ -372,8 +372,11 @@ def variance_analysis():
     """Однофакторный дисперсионный анализ"""
     def solve():
         solved1, solved2, solved3 = Label(newWindow), Label(newWindow), Label(newWindow)
+        image = Label(newWindow)
+        image.image = PhotoImage(file='./Fisher.png')
+        image['image'] = image.image
         try:
-            data = {int(i.split(' - ')[0]): [int(j) for j in i.split(' - ')[1].split(', ')] for i in
+            data = {float(i.split(' - ')[0]): [float(j) for j in i.split(' - ')[1].split(', ')] for i in
                     txt_input.get().split('; ')}
             n, k = len([data[i] for i in data][0]), len(data)
             squeres = []
@@ -388,7 +391,7 @@ def variance_analysis():
             F = round((Qa / (k - 1)) / (Qe / (k * (n - 1))), 4)
             solved1['text'] = "Результат: выборочное значение статистики Фишера равно " + str(F)
             solved2['text'] = f"Квантиль распределения Fa при {(k-1)=}, {k*(n-1)=} см. по таблице"
-            solved3['text'] = f"Если F < Fa, гипотеза H0 принимается, иначе - отклоняется"
+            solved3['text'] = f"Если F < Fa, гипотеза H0 принимается, иначе - отклоняется."
         except (ValueError, IndexError):
             solved1['text'] = "Ошибка ввода, попробуйте ещё раз." + " " * 100
             solved2['text'], solved3['text'] = " " * 150, " " * 150
@@ -396,8 +399,9 @@ def variance_analysis():
             solved1.grid(column=0, row=3, sticky=W)
             solved2.grid(column=0, row=4, sticky=W)
             solved3.grid(column=0, row=5, sticky=W)
+            image.place(x=0, y=160)
     newWindow = Toplevel(window)
-    newWindow.geometry('745x170')
+    newWindow.geometry('745x600')
     newWindow.title("Однофакторный дисперсионный анализ")
     text = """Проверяется нулевая гипотеза H0 об отсутствии влияния на результативный признак X некоторого фактора A,
            имеющего k уровней. Сопостовляется дисперсия за счёт воздействия фактора A с дисперсией, обусловленной
@@ -442,10 +446,10 @@ def point_estimates():
         def solve2():
             solved = Label(solve2Win)
             try:
-                data = list(map(int, txt_input1.get().split('; ')))
-                gen_mean = int(txt_input2.get())
+                data = list(map(float, txt_input1.get().split('; ')))
+                gen_mean = float(txt_input2.get())
                 n = len(data)
-                gen_variance = round(sum(list(map(lambda x: (x - gen_mean) ** 2, data))) / n, 4)
+                gen_variance = round(sum(map(lambda x: (x - gen_mean) ** 2, data)) / n, 4)
                 text = f"Приближённое значение ген. дисперсии D(X) является несмещённая оценка s^2={gen_variance}"
                 solved['text'] = text
             except (ValueError, IndexError, ZeroDivisionError):
@@ -466,10 +470,10 @@ def point_estimates():
         def solve3():
             solved = Label(solveWin)
             try:
-                data = list(map(int, txt_input.get().split('; ')))
+                data = list(map(float, txt_input.get().split('; ')))
                 n = len(data)
                 mean = round(sum(data) / n, 4)
-                gen_variance = round(sum(list(map(lambda x: (x - mean) ** 2, data))) / (n - 1), 4)
+                gen_variance = round(sum(map(lambda x: (x - mean) ** 2, data)) / (n - 1), 4)
                 text = f"Приближённое значение ген. дисперсии D(X) является несмещённая оценка s^2={gen_variance}"
                 solved['text'] = text
             except (ValueError, IndexError, ZeroDivisionError):
@@ -496,6 +500,39 @@ def point_estimates():
                                                                                                         sticky=W)
 
 
+def xi_square():
+    """Критерий хи-вадрат Пиросона"""
+    def solve():
+        solved = Label(newWindow)
+        image = Label(newWindow)
+        image.image = PhotoImage(file='./Pirson.png')
+        image['image'] = image.image
+        try:
+            data = [(float(i.split(' - ')[0]), float(i.split(' - ')[1])) for i in txt_input.get().split('; ')]
+            xi = round(sum(map(lambda x: (x[0] - x[1]) ** 2 / x[1], data)), 4)
+            text = f"""Эмпирическое значение критерия равно {xi} при числе степеней свободы равному {len(data) - 1}.
+            Если реальное значение меньше табличного, то гипотеза H0 принимается, иначе отклоняется."""
+            solved['text'] = text
+        except (ValueError, IndexError, ZeroDivisionError):
+            solved['text'] = "Ошибка ввода, попробуйте ещё раз." + " " * 100
+        finally:
+            solved.place(x=0, y=125)
+            image.place(x=0, y=160)
+
+    newWindow = Toplevel(window)
+    newWindow.geometry('830x600')
+    newWindow.title("Критерий хи-вадрат Пиросона")
+    text = """Критерий Пирсона отвечает на вопрос о том, с одинаковой ли частотой встречаются разные значения признака
+    в эмпирическом и теоретическом (или двух эмпирических распределениях). Выдвигается гипотеза H0, согласно которой
+    эмпирическое распределение признака не отличается от теоретического распределения. Для решения необходимо ввести
+    эмпирические частоты и теоретические в формате x1 - p1; x2 - p2; ...; xn - pn. Уровень значимости a определяется
+    по таблице. Уровень доверия равен 1 - a. Число степеней свободы равно числу элементов вариационного ряда - 1"""
+    Label(newWindow, text=text).grid(column=0, row=0, sticky=W)
+    Label(newWindow, text="Введите значения в формате \"x1 - p1; x2 - p2; ...; xn - pn\" :").grid(column=0, row=1,
+                                                                                                      sticky=W)
+    txt_input = Entry(newWindow, width=60)
+    txt_input.grid(column=0, row=2, sticky=W)
+    Button(newWindow, text="Решить", command=solve).place(x=365, y=99)
 
 
 Button(window, text="Эмпирические характеристики", command=EMP, relief=GROOVE).grid(column=0, row=0, sticky=W)
@@ -505,7 +542,8 @@ Button(window, text="Доверительные интервалы", command=DOV
 Button(window, text="Однофакторный дисперсионный анализ", command=variance_analysis, relief=GROOVE).grid(column=0,
                                                                                                          row=4,
                                                                                                          sticky=W)
-Button(window, text="Гипотезы", command=GIP, relief=GROOVE).grid(column=0, row=5, sticky=W)
+Button(window, text="Критерий хи-квадрат Пирсона", command=xi_square, relief=GROOVE).grid(column=0, row=5, sticky=W)
+Button(window, text="Гипотезы", command=GIP, relief=GROOVE).grid(column=0, row=6, sticky=W)
 
 
 if __name__ == '__main__':
