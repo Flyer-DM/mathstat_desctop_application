@@ -186,7 +186,7 @@ def EMP():
     btn.grid(column=8, row=0)
 
 
-def TOUCH_OC():
+def INTERVAL_OC():
     newWindow = Toplevel(window)
     newWindow.geometry('600x500')
     labelExample = Label(newWindow, text="New Window")
@@ -195,7 +195,7 @@ def TOUCH_OC():
     buttonExample.pack()
 
 
-def INTERVAL_OC():
+def GIP():
     newWindow = Toplevel(window)
     newWindow.geometry('600x500')
     labelExample = Label(newWindow, text="New Window")
@@ -211,7 +211,7 @@ def DOV_INTER():
     buttonExample1 = Button(newWindow, text="Рассчитать доверительный интервал для математического ожидания и дисперсии при надёжности оценки 0.98",command = DOV_INTER1)
     labelExample.pack()
     buttonExample1.pack()
-    buttonExample2 = Button(newWindow,text="Рассчитать доверительный интервал",command=DOV_INTER2)
+    buttonExample2 = Button(newWindow, text="Рассчитать доверительный интервал", command=DOV_INTER2)
     buttonExample2.pack()
     buttonExample3 = Button(newWindow, text="Рассчитать 0,95-доверительный интервал для математического ожидания недельной доходности выбранной акции.", command=DOV_INTER3)
     buttonExample3.pack()
@@ -269,6 +269,7 @@ def DOV_INTER1():
     btn = Button(newWindow, text="Подтвердить", command = get_text)
     btn.grid(column=2, row=0)
 
+
 def DOV_INTER2():
     def get_text2():
         res = "Ваша введённая выборка:{}".format(txt.get())
@@ -320,6 +321,7 @@ def DOV_INTER2():
     btn = Button(newWindow, text="Подтвердить", command = get_text2)
     btn.grid(column=2, row=0)
 
+
 def DOV_INTER3():
     def get_text():
         res = "Ваше значение n = {}".format(txt.get())
@@ -369,29 +371,33 @@ def DOV_INTER3():
 def variance_analysis():
     """Однофакторный дисперсионный анализ"""
     def solve():
-        data = {int(i.split(' - ')[0]): [int(j) for j in i.split(' - ')[1].split(', ')] for i in
-                txt_input.get().split('; ')}
-        n, k = len([data[i] for i in data][0]), len(data)
-        squeres = []
-        for i in data.values():
-            squeres.extend(i)
-        squeres = list(map(lambda x: x ** 2, squeres))
-        x_means = [round(sum(data[i]) / len(data[i]), 4) for i in data]
-        gen_x_mean = round(sum(x_means) / k, 4)
-        Q = round(sum(squeres) - n * k * gen_x_mean ** 2, 4)
-        Qa = round(n * sum(map(lambda x: x ** 2, x_means)) - n * k * gen_x_mean ** 2, 4)
-        Qe = Q - Qa
-        F = round((Qa / (k - 1)) / (Qe / ( k * (n - 1))), 4)
-        Label(newWindow, text="Резульат: выборочное значение статистики Фишера равно " + str(F)).grid(column=0, row=3,
-                                                                                                      sticky=W)
-        Label(newWindow, text=f"Квантиль распределения при {(k-1)=}, {k*(n-1)=} см. по таблице").grid(column=0, row=4,
-                                                                                                      sticky=W)
-        Label(newWindow, text=f"Если F < Fa, гипотеза H0 принимается, иначе - отклоняется").grid(column=0, row=5,
-                                                                                                 sticky=W)
-
-
+        solved1, solved2, solved3 = Label(newWindow), Label(newWindow), Label(newWindow)
+        try:
+            data = {int(i.split(' - ')[0]): [int(j) for j in i.split(' - ')[1].split(', ')] for i in
+                    txt_input.get().split('; ')}
+            n, k = len([data[i] for i in data][0]), len(data)
+            squeres = []
+            for i in data.values():
+                squeres.extend(i)
+            squeres = list(map(lambda x: x ** 2, squeres))
+            x_means = [round(sum(data[i]) / len(data[i]), 4) for i in data]
+            gen_x_mean = round(sum(x_means) / k, 4)
+            Q = round(sum(squeres) - n * k * gen_x_mean ** 2, 4)
+            Qa = round(n * sum(map(lambda x: x ** 2, x_means)) - n * k * gen_x_mean ** 2, 4)
+            Qe = Q - Qa
+            F = round((Qa / (k - 1)) / (Qe / (k * (n - 1))), 4)
+            solved1['text'] = "Результат: выборочное значение статистики Фишера равно " + str(F)
+            solved2['text'] = f"Квантиль распределения Fa при {(k-1)=}, {k*(n-1)=} см. по таблице"
+            solved3['text'] = f"Если F < Fa, гипотеза H0 принимается, иначе - отклоняется"
+        except (ValueError, IndexError):
+            solved1['text'] = "Ошибка ввода, попробуйте ещё раз." + " " * 100
+            solved2['text'], solved3['text'] = " " * 150, " " * 150
+        finally:
+            solved1.grid(column=0, row=3, sticky=W)
+            solved2.grid(column=0, row=4, sticky=W)
+            solved3.grid(column=0, row=5, sticky=W)
     newWindow = Toplevel(window)
-    newWindow.geometry('745x500')
+    newWindow.geometry('745x170')
     newWindow.title("Однофакторный дисперсионный анализ")
     text = """Проверяется нулевая гипотеза H0 об отсутствии влияния на результативный признак X некоторого фактора A,
            имеющего k уровней. Сопостовляется дисперсия за счёт воздействия фактора A с дисперсией, обусловленной
@@ -405,17 +411,95 @@ def variance_analysis():
     Button(newWindow, text="Решить", command=solve).grid(column=1, row=2, sticky=W)
 
 
-def GIP():
+def point_estimates():
+    """Точечные оценки"""
+    def solve1win():
+        """Несмещённая оценка дисперсии D(X) по статическому распределению выборки"""
+        def solve1():
+            solved = Label(solveWin)
+            try:
+                data = txt_input.get().split('; ')
+                xs, ns = [int(i.split(' - ')[0]) for i in data], [int(i.split(' - ')[1]) for i in data]
+                variance = round(sum([x ** 2 * n for x, n in zip(xs, ns)]) /
+                           sum(ns) - (sum([x * n for x, n in zip(xs, ns)]) / sum(ns)) ** 2, 4)
+                gen_variance = round((sum(ns) / (sum(ns) - 1)) * variance, 4)
+                text = f"Несмещённой оценкой ген. дисперсии D(X)={variance} является s^2={gen_variance}"
+                solved['text'] = text
+            except (ValueError, IndexError, ZeroDivisionError):
+                solved['text'] = "Ошибка ввода, попробуйте ещё раз." + " " * 100
+            finally:
+                solved.grid(column=0, row=2, sticky=W)
+        solveWin = Toplevel(window)
+        solveWin.geometry('600x80')
+        Label(solveWin,
+              text="Выборочное распределение в формате (признак) x1 - (кол-во повторов) n1; x2 - n2; ...; xm - nm").\
+            grid(column=0, row=0, sticky=W)
+        txt_input = Entry(solveWin, width=40)
+        txt_input.grid(column=0, row=1, sticky=W)
+        Button(solveWin, text="Решить", command=solve1).place(x=245, y=19)
+    def solve2win():
+        """Несмещённая оценка дисперсии D(X) по значениям выборки и генеральному среднему"""
+        def solve2():
+            solved = Label(solve2Win)
+            try:
+                data = list(map(int, txt_input1.get().split('; ')))
+                gen_mean = int(txt_input2.get())
+                n = len(data)
+                gen_variance = round(sum(list(map(lambda x: (x - gen_mean) ** 2, data))) / n, 4)
+                text = f"Приближённое значение ген. дисперсии D(X) является несмещённая оценка s^2={gen_variance}"
+                solved['text'] = text
+            except (ValueError, IndexError, ZeroDivisionError):
+                solved['text'] = "Ошибка ввода, попробуйте ещё раз." + " " * 100
+            finally:
+                solved.place(x=0, y=85)
+        solve2Win = Toplevel(window)
+        solve2Win.geometry('600x110')
+        Label(solve2Win, text="Введите значения выборки через запятую:").grid(column=0, row=0, sticky=W)
+        txt_input1 = Entry(solve2Win, width=40)
+        txt_input1.grid(column=0, row=1, sticky=W)
+        Label(solve2Win, text="Введите генеральное среднее:").grid(column=0, row=2, sticky=W)
+        txt_input2 = Entry(solve2Win, width=5)
+        txt_input2.grid(column=0, row=3, sticky=W)
+        Button(solve2Win, text="Решить", command=solve2).place(x=38, y=57)
+    def solve3win():
+        """Несмещённая оценка дисперсии D(X) по значениям выборки"""
+        def solve3():
+            solved = Label(solveWin)
+            try:
+                data = list(map(int, txt_input.get().split('; ')))
+                n = len(data)
+                mean = round(sum(data) / n, 4)
+                gen_variance = round(sum(list(map(lambda x: (x - mean) ** 2, data))) / (n - 1), 4)
+                text = f"Приближённое значение ген. дисперсии D(X) является несмещённая оценка s^2={gen_variance}"
+                solved['text'] = text
+            except (ValueError, IndexError, ZeroDivisionError):
+                solved['text'] = "Ошибка ввода, попробуйте ещё раз." + " " * 100
+            finally:
+                solved.place(x=0, y=44)
+        solveWin = Toplevel(window)
+        solveWin.geometry('600x110')
+        Label(solveWin, text="Введите значения выборки через запятую:").grid(column=0, row=0, sticky=W)
+        txt_input = Entry(solveWin, width=40)
+        txt_input.grid(column=0, row=1, sticky=W)
+        Button(solveWin, text="Решить", command=solve3).place(x=245, y=18)
+
+
     newWindow = Toplevel(window)
     newWindow.geometry('600x500')
-    labelExample = Label(newWindow, text="New Window")
-    buttonExample = Button(newWindow, text="New Window button")
-    labelExample.pack()
-    buttonExample.pack()
+    newWindow.title("Точечные оценки")
+    Button(newWindow, text="Найти несмещённую оценку дисперсии D(X) по выборке", command=solve1win).grid(column=0,
+                                                                                                         row=0,
+                                                                                                         sticky=W)
+    Button(newWindow, text="Найти ген. дисперсию при известном ген. среднем", command=solve2win).grid(column=0, row=1,
+                                                                                                      sticky=W)
+    Button(newWindow, text="Найти ген. дисперсию при неизвестном ген. среднем", command=solve3win).grid(column=0, row=2,
+                                                                                                        sticky=W)
+
+
 
 
 Button(window, text="Эмпирические характеристики", command=EMP, relief=GROOVE).grid(column=0, row=0, sticky=W)
-Button(window, text="Точечные оценки", command=TOUCH_OC, relief=GROOVE).grid(column=0, row=1, sticky=W)
+Button(window, text="Точечные оценки", command=point_estimates, relief=GROOVE).grid(column=0, row=1, sticky=W)
 Button(window, text="Интервальные оценки", command=INTERVAL_OC, relief=GROOVE).grid(column=0, row=2, sticky=W)
 Button(window, text="Доверительные интервалы", command=DOV_INTER, relief=GROOVE).grid(column=0, row=3, sticky=W)
 Button(window, text="Однофакторный дисперсионный анализ", command=variance_analysis, relief=GROOVE).grid(column=0,
