@@ -5,7 +5,7 @@ from math import sqrt
 
 window = Tk()
 logo = PhotoImage(file='math.png')
-window.geometry('370x210')
+window.geometry('370x160')
 window.iconphoto(False, logo)
 window.config(bg='#E6E6FA')
 window.resizable(False, False)
@@ -112,6 +112,7 @@ def EMP():
         lbl24.grid(column=0, row=17)
 
     newWindow = Toplevel(window)
+    newWindow.title("Эмпирические характеристики")
     newWindow.geometry('1000x500')
     lbl = Label(newWindow, text="Введите значения:")
     lbl.grid(column=0, row=0)
@@ -208,12 +209,12 @@ def DOV_INTER():
     newWindow = Toplevel(window)
     newWindow.geometry('800x500')
     labelExample = Label(newWindow, text="Выберите доверительный интервал!")
-    buttonExample1 = Button(newWindow, text="Рассчитать доверительный интервал для математического ожидания и дисперсии при надёжности оценки 0.98",command = DOV_INTER1)
+    buttonExample1 = Button(newWindow, text="Рассчитать доверительный интервал для мат. ожидания и дисперсии при надёжности оценки 0.98.", command=DOV_INTER1)
     labelExample.pack()
     buttonExample1.pack()
-    buttonExample2 = Button(newWindow, text="Рассчитать доверительный интервал", command=DOV_INTER2)
+    buttonExample2 = Button(newWindow, text="Рассчитать доверительный интервал.", command=DOV_INTER2)
     buttonExample2.pack()
-    buttonExample3 = Button(newWindow, text="Рассчитать 0,95-доверительный интервал для математического ожидания недельной доходности выбранной акции.", command=DOV_INTER3)
+    buttonExample3 = Button(newWindow, text="Рассчитать 0.95-доверительный интервал для мат. ожидания при известных среднего выборки и среднеквадратическом отклонении.", command=DOV_INTER3)
     buttonExample3.pack()
 
 
@@ -256,6 +257,7 @@ def DOV_INTER1():
         lbl9.grid(column=0, row=7)
 
     newWindow = Toplevel(window)
+    newWindow.title("Доверительные интервалы")
     newWindow.geometry('600x500')
     lbl = Label(newWindow, text="Введите выборку")
     lbl.grid(column=0, row=0)
@@ -434,6 +436,7 @@ def point_estimates():
             finally:
                 solved.grid(column=0, row=2, sticky=W)
         solveWin = Toplevel(window)
+        solveWin.title("Несмещённая оценка дисперсии D(X) по статическому распределению выборки")
         solveWin.geometry('600x80')
         Label(solveWin,
               text="Выборочное распределение в формате (признак) x1 - (кол-во повторов) n1; x2 - n2; ...; xm - nm").\
@@ -444,7 +447,7 @@ def point_estimates():
     def solve2win():
         """Несмещённая оценка дисперсии D(X) по значениям выборки и генеральному среднему"""
         def solve2():
-            solved = Label(solve2Win)
+            solved = Label(solveWin)
             try:
                 data = list(map(float, txt_input1.get().split('; ')))
                 gen_mean = float(txt_input2.get())
@@ -456,15 +459,16 @@ def point_estimates():
                 solved['text'] = "Ошибка ввода, попробуйте ещё раз." + " " * 100
             finally:
                 solved.place(x=0, y=85)
-        solve2Win = Toplevel(window)
-        solve2Win.geometry('600x110')
-        Label(solve2Win, text="Введите значения выборки через запятую:").grid(column=0, row=0, sticky=W)
-        txt_input1 = Entry(solve2Win, width=40)
+        solveWin = Toplevel(window)
+        solveWin.title("Несмещённая оценка дисперсии D(X) по значениям выборки и генеральному среднему")
+        solveWin.geometry('600x110')
+        Label(solveWin, text="Введите значения выборки через точку с запятой:").grid(column=0, row=0, sticky=W)
+        txt_input1 = Entry(solveWin, width=40)
         txt_input1.grid(column=0, row=1, sticky=W)
-        Label(solve2Win, text="Введите генеральное среднее:").grid(column=0, row=2, sticky=W)
-        txt_input2 = Entry(solve2Win, width=5)
+        Label(solveWin, text="Введите генеральное среднее:").grid(column=0, row=2, sticky=W)
+        txt_input2 = Entry(solveWin, width=5)
         txt_input2.grid(column=0, row=3, sticky=W)
-        Button(solve2Win, text="Решить", command=solve2).place(x=38, y=57)
+        Button(solveWin, text="Решить", command=solve2).place(x=38, y=57)
     def solve3win():
         """Несмещённая оценка дисперсии D(X) по значениям выборки"""
         def solve3():
@@ -481,15 +485,16 @@ def point_estimates():
             finally:
                 solved.place(x=0, y=44)
         solveWin = Toplevel(window)
+        solveWin.title("Несмещённая оценка дисперсии D(X) по значениям выборки")
         solveWin.geometry('600x110')
-        Label(solveWin, text="Введите значения выборки через запятую:").grid(column=0, row=0, sticky=W)
+        Label(solveWin, text="Введите значения выборки через точку с запятой:").grid(column=0, row=0, sticky=W)
         txt_input = Entry(solveWin, width=40)
         txt_input.grid(column=0, row=1, sticky=W)
         Button(solveWin, text="Решить", command=solve3).place(x=245, y=18)
 
 
     newWindow = Toplevel(window)
-    newWindow.geometry('600x500')
+    newWindow.geometry('350x100')
     newWindow.title("Точечные оценки")
     Button(newWindow, text="Найти несмещённую оценку дисперсии D(X) по выборке", command=solve1win).grid(column=0,
                                                                                                          row=0,
@@ -501,7 +506,7 @@ def point_estimates():
 
 
 def xi_square():
-    """Критерий хи-вадрат Пиросона"""
+    """Критерий хи-квадрат Пирсона"""
     def solve():
         solved = Label(newWindow)
         image = Label(newWindow)
@@ -521,7 +526,7 @@ def xi_square():
 
     newWindow = Toplevel(window)
     newWindow.geometry('830x600')
-    newWindow.title("Критерий хи-вадрат Пиросона")
+    newWindow.title("Критерий хи-квадрат Пирсона")
     text = """Критерий Пирсона отвечает на вопрос о том, с одинаковой ли частотой встречаются разные значения признака
     в эмпирическом и теоретическом (или двух эмпирических распределениях). Выдвигается гипотеза H0, согласно которой
     эмпирическое распределение признака не отличается от теоретического распределения. Для решения необходимо ввести
@@ -567,7 +572,7 @@ def dispersions():
             solved3.grid(column=0, row=5, sticky=W)
             solved4.grid(column=0, row=6, sticky=W)
     newWindow = Toplevel(window)
-    newWindow.geometry('830x600')
+    newWindow.geometry('630x200')
     newWindow.title("Расчёт всех видов дисперсий")
     text = """Для расчёт общей, групповой, внутригрупповой и межгрупповой дисперсий нужно ввести значения в формате
     группа - элементы группы через запятую."""
@@ -581,14 +586,14 @@ def dispersions():
 
 Button(window, text="Эмпирические характеристики", command=EMP, relief=GROOVE).grid(column=0, row=0, sticky=W)
 Button(window, text="Точечные оценки", command=point_estimates, relief=GROOVE).grid(column=0, row=1, sticky=W)
-Button(window, text="Интервальные оценки", command=INTERVAL_OC, relief=GROOVE).grid(column=0, row=2, sticky=W)
-Button(window, text="Доверительные интервалы", command=DOV_INTER, relief=GROOVE).grid(column=0, row=3, sticky=W)
+#Button(window, text="Интервальные оценки", command=INTERVAL_OC, relief=GROOVE).grid(column=0, row=2, sticky=W)
+Button(window, text="Доверительные интервалы", command=DOV_INTER, relief=GROOVE).grid(column=0, row=2, sticky=W)
 Button(window, text="Однофакторный дисперсионный анализ", command=variance_analysis, relief=GROOVE).grid(column=0,
-                                                                                                         row=4,
+                                                                                                         row=3,
                                                                                                          sticky=W)
-Button(window, text="Критерий хи-квадрат Пирсона", command=xi_square, relief=GROOVE).grid(column=0, row=5, sticky=W)
-Button(window, text="Гипотезы", command=GIP, relief=GROOVE).grid(column=0, row=6, sticky=W)
-Button(window, text="Расчёт всех видов дисперсий", command=dispersions, relief=GROOVE).grid(column=0, row=7, sticky=W)
+Button(window, text="Критерий хи-квадрат Пирсона", command=xi_square, relief=GROOVE).grid(column=0, row=4, sticky=W)
+#Button(window, text="Гипотезы", command=GIP, relief=GROOVE).grid(column=0, row=6, sticky=W)
+Button(window, text="Расчёт всех видов дисперсий", command=dispersions, relief=GROOVE).grid(column=0, row=5, sticky=W)
 
 
 if __name__ == '__main__':
