@@ -1,6 +1,8 @@
 from tkinter import *
 from statistics import mean, median
 from math import sqrt
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 window = Tk()
@@ -508,36 +510,47 @@ def point_estimates():
 def xi_square():
     """Критерий хи-квадрат Пирсона"""
     def solve():
-        solved = Label(newWindow)
-        image = Label(newWindow)
-        image.image = PhotoImage(file='./Pirson.png')
-        image['image'] = image.image
+        solved = Label(newWindow, justify=LEFT)
         try:
+            fig, ax = plt.subplots()
             data = [(float(i.split(' - ')[0]), float(i.split(' - ')[1])) for i in txt_input.get().split('; ')]
             xi = round(sum(map(lambda x: (x[0] - x[1]) ** 2 / x[1], data)), 4)
+            real, theory, labels = [i[0] for i in data], [i[1] for i in data], [i for i in range(1, len(data) + 1)]
+            x = np.arange(len(labels))
+            ax.bar(x - 0.175, real, 0.35, label='Эмпирические наблюдения')
+            ax.bar(x + 0.175, theory, 0.35, label='Теоретические наблюдения')
+            ax.set_title('Распределение хи-квадрат')
+            ax.set_xticks(x, labels)
+            ax.legend()
+            plt.show()
             text = f"""Эмпирическое значение критерия равно {xi} при числе степеней свободы равному {len(data) - 1}.
-            Если реальное значение меньше табличного, то гипотеза H0 принимается, иначе отклоняется."""
+Если реальное значение меньше табличного, то гипотеза H0 принимается, иначе отклоняется."""
             solved['text'] = text
         except (ValueError, IndexError, ZeroDivisionError):
-            solved['text'] = "Ошибка ввода, попробуйте ещё раз." + " " * 100
+            solved['text'] = "Ошибка ввода, попробуйте ещё раз." + " " * 150
         finally:
             solved.place(x=0, y=125)
-            image.place(x=0, y=160)
 
     newWindow = Toplevel(window)
     newWindow.geometry('830x600')
     newWindow.title("Критерий хи-квадрат Пирсона")
     text = """Критерий Пирсона отвечает на вопрос о том, с одинаковой ли частотой встречаются разные значения признака
-    в эмпирическом и теоретическом (или двух эмпирических распределениях). Выдвигается гипотеза H0, согласно которой
-    эмпирическое распределение признака не отличается от теоретического распределения. Для решения необходимо ввести
-    эмпирические частоты и теоретические в формате x1 - p1; x2 - p2; ...; xn - pn. Уровень значимости a определяется
-    по таблице. Уровень доверия равен 1 - a. Число степеней свободы равно числу элементов вариационного ряда - 1"""
-    Label(newWindow, text=text).grid(column=0, row=0, sticky=W)
-    Label(newWindow, text="Введите значения в формате \"x1 - p1; x2 - p2; ...; xn - pn\" :").grid(column=0, row=1,
-                                                                                                      sticky=W)
+в эмпирическом и теоретическом (или двух эмпирических) распределениях. Выдвигается гипотеза H0, согласно которой
+эмпирическое распределение признака не отличается от теоретического распределения. Для решения необходимо ввести
+эмпирические частоты и теоретические в формате x1 - p1; x2 - p2; ...; xn - pn. Уровень значимости a определяется
+по таблице. Уровень доверия равен 1 - a. Число степеней свободы равно числу элементов вариационного ряда - 1."""
+    Label(newWindow, text=text, justify=LEFT, font=('Franklin Gothic Medium Cond', 10)).grid(column=0, row=0, sticky=W)
+    Label(newWindow, text="Введите значения в формате \"x1 - p1; x2 - p2; ...; xn - pn\" :",
+          font=('Franklin Gothic Medium Cond', 10, 'bold')).grid(column=0, row=1, sticky=W)
     txt_input = Entry(newWindow, width=60)
     txt_input.grid(column=0, row=2, sticky=W)
-    Button(newWindow, text="Решить", command=solve).place(x=365, y=99)
+    Button(newWindow, text="Решить", command=solve).place(x=365, y=105)
+    image = Label(newWindow)
+    image.image = PhotoImage(file='./Pirson.png')
+    image['image'] = image.image
+    image.place(x=0, y=160)
+    Label(newWindow, text="Таблица распределения хи-квадрат Пирсона.",
+          font=('Franklin Gothic Medium Cond', 10)).place(x=0, y=570)
 
 
 def dispersions():
