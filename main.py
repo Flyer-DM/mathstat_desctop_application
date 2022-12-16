@@ -58,143 +58,147 @@ def EMP():
         p = COV / sqrt(D_x * D_y)  # Эмпирический коэффициент корреляции
 
         lbl = Label(newWindow, text="Значение X:")  # Частотные распределения признаков X
-        lbl.grid(column=0, row=4)
+        lbl.grid(column=0, row=5)
         lbl2 = Label(newWindow, text=str(x1))
-        lbl2.grid(column=1, row=4)
+        lbl2.grid(column=1, row=5)
         lbl3 = Label(newWindow, text=str(x2))
-        lbl3.grid(column=2, row=4)
+        lbl3.grid(column=2, row=5)
         lbl4 = Label(newWindow, text=str(x3))
-        lbl4.grid(column=3, row=4)
+        lbl4.grid(column=3, row=5)
         lbl5 = Label(newWindow, text=str(x4))
-        lbl5.grid(column=4, row=4)
+        lbl5.grid(column=4, row=5)
         lbl6 = Label(newWindow, text="Частота:")
-        lbl6.grid(column=0, row=5)
+        lbl6.grid(column=0, row=6)
         lbl7 = Label(newWindow, text=str(x1_all))
-        lbl7.grid(column=1, row=5)
+        lbl7.grid(column=1, row=6)
         lbl8 = Label(newWindow, text=str(x2_all))
-        lbl8.grid(column=2, row=5)
+        lbl8.grid(column=2, row=6)
         lbl9 = Label(newWindow, text=str(x3_all))
-        lbl9.grid(column=3, row=5)
+        lbl9.grid(column=3, row=6)
         lbl10 = Label(newWindow, text=str(x4_all))
-        lbl10.grid(column=4, row=5)
+        lbl10.grid(column=4, row=6)
 
         lbl_empty = Label(newWindow, text="")  # Пустая строчка для разделения частотных признаков между собой
-        lbl_empty.grid(column=0, row=6)
+        lbl_empty.grid(column=0, row=7)
 
         lbl11 = Label(newWindow, text="Значение Y:")  # Частотные распределения признаков Y
-        lbl11.grid(column=0, row=7)
+        lbl11.grid(column=0, row=8)
         lbl12 = Label(newWindow, text=str(y1))
-        lbl12.grid(column=1, row=7)
+        lbl12.grid(column=1, row=8)
         lbl13 = Label(newWindow, text=str(y2))
-        lbl13.grid(column=2, row=7)
+        lbl13.grid(column=2, row=8)
         lbl14 = Label(newWindow, text=str(y3))
-        lbl14.grid(column=3, row=7)
+        lbl14.grid(column=3, row=8)
         lbl15 = Label(newWindow, text="Частота:")
-        lbl15.grid(column=0, row=8)
+        lbl15.grid(column=0, row=9)
         lbl16 = Label(newWindow, text=str(y1_all))
-        lbl16.grid(column=1, row=8)
+        lbl16.grid(column=1, row=9)
         lbl17 = Label(newWindow, text=str(y2_all))
-        lbl17.grid(column=2, row=8)
+        lbl17.grid(column=2, row=9)
         lbl18 = Label(newWindow, text=str(y3_all))
-        lbl18.grid(column=3, row=8)
+        lbl18.grid(column=3, row=9)
 
         lbl_empty2 = Label(newWindow,
                            text="")  # Пустая строчка для разделения частотных признаков и эмпирических характеристик
-        lbl_empty2.grid(column=0, row=9)
+        lbl_empty2.grid(column=0, row=10)
 
         lbl19 = Label(newWindow, text="ср. x = " + str(sr_x))  # Среднее значение X
-        lbl19.grid(column=0, row=10)
+        lbl19.grid(column=0, row=11)
         lbl20 = Label(newWindow, text="ср. y = " + str(sr_y))  # Среднее значение Y
-        lbl20.grid(column=0, row=11)
+        lbl20.grid(column=0, row=12)
         lbl21 = Label(newWindow, text="D(X) = " + str(D_x))  # Эмпирическая дисперсия по X
-        lbl21.grid(column=0, row=12)
+        lbl21.grid(column=0, row=13)
         lbl22 = Label(newWindow, text="D(Y) = " + str(D_y))  # Эмпирическая дисперсия по Y
-        lbl22.grid(column=0, row=13)
+        lbl22.grid(column=0, row=14)
         lbl23 = Label(newWindow, text="COV(X,Y) = " + str(COV))  # Эмпирическая ковариация
-        lbl23.grid(column=0, row=14)
+        lbl23.grid(column=0, row=15)
         lbl24 = Label(newWindow, text="p(X,Y) = " + str(p))  # Эмпирический коэффициент корреляции
-        lbl24.grid(column=0, row=15)
+        lbl24.grid(column=0, row=16)
 
         lbl_empty3 = Label(newWindow, text="")  # Пустая строчка для разделения эмпирических характеристик и ответа
-        lbl_empty3.grid(column=0, row=16)
+        lbl_empty3.grid(column=0, row=17)
 
         lbl24 = Label(newWindow, text="Ответ: Эмпирический коэффициент корреляции = " + str(p))  # Ответ
-        lbl24.grid(column=0, row=17)
+        lbl24.grid(column=0, row=18)
 
     newWindow = Toplevel(window)
     newWindow.title("Эмпирические характеристики")
     newWindow.geometry('1000x500')
+
+    lbl = Label(newWindow, text="Если вам надо найти эмпирический коэффициент корреляции ρ(X, Y ), то вам нужно ввести следующие данные:")
+    lbl.grid(column=0, row=0, columnspan=6)
+
     lbl = Label(newWindow, text="Введите значения:")
-    lbl.grid(column=0, row=0)
+    lbl.grid(column=0, row=1)
 
     lblt = Label(newWindow, text="Y  /  X")
-    lblt.grid(column=1, row=0)
+    lblt.grid(column=1, row=1)
 
     ytxt = Entry(newWindow, width=10)  # Entry по Y
-    ytxt.grid(column=1, row=1)
+    ytxt.grid(column=1, row=2)
 
     ytxt2 = Entry(newWindow, width=10)
-    ytxt2.grid(column=1, row=2)
+    ytxt2.grid(column=1, row=3)
 
     ytxt3 = Entry(newWindow, width=10)
-    ytxt3.grid(column=1, row=3)
+    ytxt3.grid(column=1, row=4)
 
     txt = Entry(newWindow, width=10)  # Entry по всем значениям
-    txt.grid(column=2, row=1)
+    txt.grid(column=2, row=2)
 
     txt1 = Entry(newWindow, width=10)
-    txt1.grid(column=2, row=2)
+    txt1.grid(column=2, row=3)
 
     txt2 = Entry(newWindow, width=10)
-    txt2.grid(column=2, row=3)
+    txt2.grid(column=2, row=4)
 
     txt3 = Entry(newWindow, width=10)
-    txt3.grid(column=3, row=1)
+    txt3.grid(column=3, row=2)
 
     txt4 = Entry(newWindow, width=10)
-    txt4.grid(column=3, row=2)
+    txt4.grid(column=3, row=3)
 
     txt5 = Entry(newWindow, width=10)
-    txt5.grid(column=3, row=3)
+    txt5.grid(column=3, row=4)
 
     txt6 = Entry(newWindow, width=10)
-    txt6.grid(column=4, row=1)
+    txt6.grid(column=4, row=2)
 
     txt7 = Entry(newWindow, width=10)
-    txt7.grid(column=4, row=2)
+    txt7.grid(column=4, row=3)
 
     txt8 = Entry(newWindow, width=10)
-    txt8.grid(column=4, row=3)
+    txt8.grid(column=4, row=4)
 
     txt9 = Entry(newWindow, width=10)
-    txt9.grid(column=5, row=1)
+    txt9.grid(column=5, row=2)
 
     txt10 = Entry(newWindow, width=10)
-    txt10.grid(column=5, row=2)
+    txt10.grid(column=5, row=3)
 
     txt11 = Entry(newWindow, width=10)
-    txt11.grid(column=5, row=3)
+    txt11.grid(column=5, row=4)
 
     xtxt = Entry(newWindow, width=10)  # Entry по X
-    xtxt.grid(column=2, row=0)
+    xtxt.grid(column=2, row=1)
 
     xtxt2 = Entry(newWindow, width=10)
-    xtxt2.grid(column=3, row=0)
+    xtxt2.grid(column=3, row=1)
 
     xtxt3 = Entry(newWindow, width=10)
-    xtxt3.grid(column=4, row=0)
+    xtxt3.grid(column=4, row=1)
 
     xtxt4 = Entry(newWindow, width=10)
-    xtxt4.grid(column=5, row=0)
+    xtxt4.grid(column=5, row=1)
 
     lbln = Label(newWindow, text="Введите значение n:")
-    lbln.grid(column=6, row=0)
+    lbln.grid(column=6, row=1)
 
     ntxt = Entry(newWindow, width=10)  # Entry по значению n
-    ntxt.grid(column=7, row=0)
+    ntxt.grid(column=7, row=1)
 
     btn = Button(newWindow, text="Подтвердить", command=get_text)
-    btn.grid(column=8, row=0)
+    btn.grid(column=8, row=1)
 
 
 def DOV_INTER1():
@@ -223,35 +227,39 @@ def DOV_INTER1():
 
         lbl2.configure(text=res)
         lbl3 = Label(newWindow, text="Кол-во элементов выборки = " + str(len(res3)))
-        lbl3.grid(column=0, row=1)
+        lbl3.grid(column=0, row=2)
         lbl4 = Label(newWindow, text="Среднее арифметическое значение = " + str(round(Mean_A, 2)))
-        lbl4.grid(column=0, row=2)
+        lbl4.grid(column=0, row=3)
         lbl5 = Label(newWindow, text="Медиана = " + str(round(Median_A, 2)))
-        lbl5.grid(column=0, row=3)
+        lbl5.grid(column=0, row=4)
         lbl6 = Label(newWindow, text="Размах = " + str(round(R, 2)))
-        lbl6.grid(column=0, row=4)
+        lbl6.grid(column=0, row=5)
         lbl7 = Label(newWindow, text="Дисперсия = " + str(round(Disper_A, 2)))
-        lbl7.grid(column=0, row=5)
+        lbl7.grid(column=0, row=6)
         lbl8 = Label(newWindow, text="Среднее квадратическое отклонение = " + str(round(KV_A, 2)))
-        lbl8.grid(column=0, row=6)
+        lbl8.grid(column=0, row=7)
         lbl9 = Label(newWindow, text="Доверительный интервал = [" + str(round(Result1_min, 2)) + ", " + str(
             round(Result1_max, 2)) + "]")
-        lbl9.grid(column=0, row=7)
+        lbl9.grid(column=0, row=8)
 
     newWindow = Toplevel(window)
-    newWindow.title("Доверительный интервал по выборке")
+    newWindow.title("Доверительный интервал для мат. ожид. и D(X) при a=0.98")
     newWindow.geometry('600x500')
+
+    lbl = Label(newWindow, text="Введите выборку и будет произведён автоматический расчёт с помощью надёжности оценки 0.98")
+    lbl.grid(column=0, row=0, columnspan=4)
+
     lbl = Label(newWindow, text="Введите выборку")
-    lbl.grid(column=0, row=0)
+    lbl.grid(column=0, row=1)
 
     txt = Entry(newWindow, width=10)
-    txt.grid(column=1, row=0)
+    txt.grid(column=1, row=1)
 
     lbl2 = Label(newWindow, text="Ваша введённая выборка:")
-    lbl2.grid(column=3, row=0)
+    lbl2.grid(column=3, row=1)
 
     btn = Button(newWindow, text="Подтвердить", command=get_text)
-    btn.grid(column=2, row=0)
+    btn.grid(column=2, row=1)
 
 
 def DOV_INTER2():
@@ -279,40 +287,44 @@ def DOV_INTER2():
 
         lbl2.configure(text=res)
         lbl3 = Label(newWindow, text="Кол-во элементов выборки = " + str(len(res3)))
-        lbl3.grid(column=0, row=1)
+        lbl3.grid(column=0, row=2)
         lbl4 = Label(newWindow, text="Среднее арифметическое значение = " + str(round(Mean_A, 2)))
-        lbl4.grid(column=0, row=2)
+        lbl4.grid(column=0, row=3)
         lbl5 = Label(newWindow, text="Медиана = " + str(round(Median_A, 2)))
-        lbl5.grid(column=0, row=3)
+        lbl5.grid(column=0, row=4)
         lbl6 = Label(newWindow, text="Размах = " + str(round(R, 2)))
-        lbl6.grid(column=0, row=4)
+        lbl6.grid(column=0, row=5)
         lbl7 = Label(newWindow, text="Дисперсия = " + str(round(Disper_A, 2)))
-        lbl7.grid(column=0, row=5)
+        lbl7.grid(column=0, row=6)
         lbl8 = Label(newWindow, text="Среднее квадратическое отклонение = " + str(round(KV_A, 2)))
-        lbl8.grid(column=0, row=6)
+        lbl8.grid(column=0, row=7)
         lbl9 = Label(newWindow, text="Доверительный интервал = [" + str(round(Result2_min, 2)) + ", " + str(
             round(Result2_max, 2)) + "]")
-        lbl9.grid(column=0, row=7)
+        lbl9.grid(column=0, row=8)
 
     newWindow = Toplevel(window)
     newWindow.geometry('600x500')
-    newWindow.title("Доверительный интервал для мат. ожид. и D(X) при a=0.98")
+    newWindow.title("Доверительный интервал по выборке")
+
+    lbl = Label(newWindow, text="Введите выборку и будет произведён автоматический расчёт с помощью ср. кв. отклонения")
+    lbl.grid(column=0, row=0, columnspan=4)
+
     lbl = Label(newWindow, text="Введите выборку")
-    lbl.grid(column=0, row=0)
+    lbl.grid(column=0, row=1)
 
     txt = Entry(newWindow, width=10)
-    txt.grid(column=1, row=0)
+    txt.grid(column=1, row=1)
 
     lbl2 = Label(newWindow, text="Ваша введённая выборка:")
-    lbl2.grid(column=3, row=0)
+    lbl2.grid(column=3, row=1)
 
     btn = Button(newWindow, text="Подтвердить", command=get_text2)
-    btn.grid(column=2, row=0)
+    btn.grid(column=2, row=2)
 
 
 def DOV_INTER3():
     def get_text():
-        res = "Ваше значение n = {}".format(txt.get())
+        res = "Ваше значение n (количество недель) = {}".format(txt.get())
         n = int("{}".format(txt.get()))
         print(n)
         r = float("{}".format(txt2.get()))
@@ -321,25 +333,25 @@ def DOV_INTER3():
         rightres = r + 1.96 * (srkv / sqrt(n))
 
         lbl33.configure(text=res)
-        lbl4 = Label(newWindow, text="r = " + str(r))
+        lbl4 = Label(newWindow, text="Выборочная средняя r = " + str(r))
         lbl4.grid(column=3, row=1)
         lbl5 = Label(newWindow, text="ср. кв. отклонение = " + str(srkv))
         lbl5.grid(column=3, row=2)
 
         lbl9 = Label(newWindow,
-                     text="Доверительный интервал = [" + str(round(leftres, 9)) + ",0," + str(round(rightres, 9)) + "]")
+                     text="Доверительный интервал = [" + str(round(leftres, 4)) + "," + str(round(rightres, 4)) + "]")
         lbl9.grid(column=0, row=7)
 
     newWindow = Toplevel(window)
     newWindow.geometry('600x500')
     newWindow.title("Доверительный интервал для мат. ожид. при среднем выборки и средкв. откл. при a=0.95")
-    lbl = Label(newWindow, text="Введите n")
+    lbl = Label(newWindow, text="Введите n (количество недель)")
     lbl.grid(column=0, row=0)
 
     txt = Entry(newWindow, width=10)
     txt.grid(column=1, row=0)
 
-    lbl2 = Label(newWindow, text="Введите r")
+    lbl2 = Label(newWindow, text="Введите выборочную среднюю r")
     lbl2.grid(column=0, row=1)
 
     txt2 = Entry(newWindow, width=10)
@@ -600,9 +612,9 @@ solve2 = Button(window, text="Несмещённая оценка D(X) по вы
 solve3 = Button(window, text="Несмещённая оценка D(X) по выборке",
                 command=solve3win, relief=GROOVE, width=45)
 solve4 = Button(window, text="По выборке",
-                command=DOV_INTER1, relief=GROOVE, width=60)
-solve5 = Button(window, text="Дов. интер. для мат. ожид. и D(X) при a=0.98",
                 command=DOV_INTER2, relief=GROOVE, width=60)
+solve5 = Button(window, text="Дов. интер. для мат. ожид. и D(X) при a=0.98",
+                command=DOV_INTER1, relief=GROOVE, width=60)
 solve6 = Button(window, text="Дов. интер. для мат. ожид. при среднем выборки и средкв. откл. при a=0.95",
                 command=DOV_INTER3, relief=GROOVE, width=60)
 
