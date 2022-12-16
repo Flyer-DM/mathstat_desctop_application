@@ -436,6 +436,7 @@ def xi_square():
             ax.set_title('Распределение хи-квадрат')
             ax.set_xticks(x, labels)
             ax.legend()
+            plt.savefig('foo.png')
             plt.show()
             text = f"""Эмпирическое значение критерия равно {xi} при числе степеней свободы равному {len(data) - 1}.
 Если реальное значение меньше табличного, то гипотеза H0 принимается, иначе отклоняется."""
@@ -465,6 +466,7 @@ def xi_square():
     image.place(x=0, y=160)
     Label(newWindow, text="Таблица распределения хи-квадрат Пирсона.",
           font=('Franklin Gothic Medium Cond', 10)).place(x=0, y=570)
+
 
 
 def dispersions():
