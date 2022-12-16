@@ -1,6 +1,7 @@
 from tkinter import *
 from statistics import mean, median
 from math import sqrt
+from os import remove
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -125,13 +126,15 @@ def EMP():
     newWindow.title("Эмпирические характеристики")
     newWindow.geometry('1000x500')
 
-    lbl = Label(newWindow, text="Если вам надо найти эмпирический коэффициент корреляции ρ(X, Y ), то вам нужно ввести следующие данные:")
+    lbl = Label(newWindow,
+                text="Если вам надо найти эмпирический коэффициент корреляции ρ(X, Y), то вам нужно ввести следующие данные:",
+                font=('Franklin Gothic Medium Cond', 10))
     lbl.grid(column=0, row=0, columnspan=6)
 
-    lbl = Label(newWindow, text="Введите значения:")
+    lbl = Label(newWindow, text="Введите значения:", font=('Franklin Gothic Medium Cond', 10, 'bold'))
     lbl.grid(column=0, row=1)
 
-    lblt = Label(newWindow, text="Y  /  X")
+    lblt = Label(newWindow, text="Y  /  X", font=('Franklin Gothic Medium Cond', 10))
     lblt.grid(column=1, row=1)
 
     ytxt = Entry(newWindow, width=10)  # Entry по Y
@@ -191,7 +194,7 @@ def EMP():
     xtxt4 = Entry(newWindow, width=10)
     xtxt4.grid(column=5, row=1)
 
-    lbln = Label(newWindow, text="Введите значение n:")
+    lbln = Label(newWindow, text="Введите значение n:", font=('Franklin Gothic Medium Cond', 10, 'bold'))
     lbln.grid(column=6, row=1)
 
     ntxt = Entry(newWindow, width=10)  # Entry по значению n
@@ -246,16 +249,18 @@ def DOV_INTER1():
     newWindow.title("Доверительный интервал для мат. ожид. и D(X) при a=0.98")
     newWindow.geometry('600x500')
 
-    lbl = Label(newWindow, text="Введите выборку и будет произведён автоматический расчёт с помощью надёжности оценки 0.98")
+    lbl = Label(newWindow,
+                text="Введите выборку и будет произведён автоматический расчёт с помощью надёжности оценки 0.98",
+                font=('Franklin Gothic Medium Cond', 10))
     lbl.grid(column=0, row=0, columnspan=4)
 
-    lbl = Label(newWindow, text="Введите выборку")
+    lbl = Label(newWindow, text="Введите выборку", font=('Franklin Gothic Medium Cond', 10, 'bold'))
     lbl.grid(column=0, row=1)
 
     txt = Entry(newWindow, width=10)
     txt.grid(column=1, row=1)
 
-    lbl2 = Label(newWindow, text="Ваша введённая выборка:")
+    lbl2 = Label(newWindow, text="Ваша введённая выборка:", font=('Franklin Gothic Medium Cond', 10))
     lbl2.grid(column=3, row=1)
 
     btn = Button(newWindow, text="Подтвердить", command=get_text)
@@ -306,16 +311,17 @@ def DOV_INTER2():
     newWindow.geometry('600x500')
     newWindow.title("Доверительный интервал по выборке")
 
-    lbl = Label(newWindow, text="Введите выборку и будет произведён автоматический расчёт с помощью ср. кв. отклонения")
+    lbl = Label(newWindow, text="Введите выборку и будет произведён автоматический расчёт с помощью ср. кв. отклонения",
+                font=('Franklin Gothic Medium Cond', 10))
     lbl.grid(column=0, row=0, columnspan=4)
 
-    lbl = Label(newWindow, text="Введите выборку")
+    lbl = Label(newWindow, text="Введите выборку", font=('Franklin Gothic Medium Cond', 10, 'bold'))
     lbl.grid(column=0, row=1)
 
     txt = Entry(newWindow, width=10)
     txt.grid(column=1, row=1)
 
-    lbl2 = Label(newWindow, text="Ваша введённая выборка:")
+    lbl2 = Label(newWindow, text="Ваша введённая выборка:", font=('Franklin Gothic Medium Cond', 10))
     lbl2.grid(column=3, row=1)
 
     btn = Button(newWindow, text="Подтвердить", command=get_text2)
@@ -345,25 +351,25 @@ def DOV_INTER3():
     newWindow = Toplevel(window)
     newWindow.geometry('600x500')
     newWindow.title("Доверительный интервал для мат. ожид. при среднем выборки и средкв. откл. при a=0.95")
-    lbl = Label(newWindow, text="Введите n (количество недель)")
+    lbl = Label(newWindow, text="Введите n (количество недель)", font=('Franklin Gothic Medium Cond', 10, 'bold'))
     lbl.grid(column=0, row=0)
 
     txt = Entry(newWindow, width=10)
     txt.grid(column=1, row=0)
 
-    lbl2 = Label(newWindow, text="Введите выборочную среднюю r")
+    lbl2 = Label(newWindow, text="Введите выборочную среднюю r", font=('Franklin Gothic Medium Cond', 10, 'bold'))
     lbl2.grid(column=0, row=1)
 
     txt2 = Entry(newWindow, width=10)
     txt2.grid(column=1, row=1)
 
-    lbl3 = Label(newWindow, text="Введите ср. кв. отклонение")
+    lbl3 = Label(newWindow, text="Введите ср. кв. отклонение", font=('Franklin Gothic Medium Cond', 10, 'bold'))
     lbl3.grid(column=0, row=2)
 
     txt3 = Entry(newWindow, width=10)
     txt3.grid(column=1, row=2)
 
-    lbl33 = Label(newWindow, text="Ваши значения:")
+    lbl33 = Label(newWindow, text="Ваши значения:", font=('Franklin Gothic Medium Cond', 10))
     lbl33.grid(column=3, row=0)
 
     btn = Button(newWindow, text="Подтвердить", command=get_text)
@@ -436,11 +442,18 @@ def xi_square():
             ax.set_title('Распределение хи-квадрат')
             ax.set_xticks(x, labels)
             ax.legend()
-            plt.savefig('foo.png')
-            plt.show()
+            plt.savefig('graph.png')
+            newWindow1 = Toplevel(window)
+            newWindow1.title("График")
+            image1 = Label(newWindow1)
+            image1.image = PhotoImage(file='./graph.png')
+            image1['image'] = image1.image
+            image1.pack()
+#MatplotlibDeprecationWarning: Support for FigureCanvases without a required_interactive_framework attribute was deprecated
             text = f"""Эмпирическое значение критерия равно {xi} при числе степеней свободы равному {len(data) - 1}.
 Если реальное значение меньше табличного, то гипотеза H0 принимается, иначе отклоняется."""
             solved['text'] = text
+            remove('./graph.png')
         except (ValueError, IndexError, ZeroDivisionError):
             solved['text'] = "Ошибка ввода, попробуйте ещё раз." + " " * 150 + "\n" + " " * 200
         finally:
@@ -545,8 +558,8 @@ def solve1win():
     solveWin.title("Несмещённая оценка дисперсии D(X) по статическому распределению выборки")
     solveWin.geometry('600x80')
     Label(solveWin,
-          text="Выборочное распределение в формате (признак) x1 - (кол-во повторов) n1; x2 - n2; ...; xm - nm"). \
-        grid(column=0, row=0, sticky=W)
+          text="Выборочное распределение в формате (признак) x1 - (кол-во повторов) n1; x2 - n2; ...; xm - nm",
+          font=('Franklin Gothic Medium Cond', 10)).grid(column=0, row=0, sticky=W)
     txt_input = Entry(solveWin, width=40)
     txt_input.grid(column=0, row=1, sticky=W)
     Button(solveWin, text="Решить", command=solve1).place(x=245, y=19)
@@ -572,13 +585,15 @@ def solve2win():
     solveWin = Toplevel(window)
     solveWin.title("Несмещённая оценка дисперсии D(X) по значениям выборки и генеральному среднему")
     solveWin.geometry('600x110')
-    Label(solveWin, text="Введите значения выборки через точку с запятой:").grid(column=0, row=0, sticky=W)
+    Label(solveWin, text="Введите значения выборки через точку с запятой:",
+          font=('Franklin Gothic Medium Cond', 10, 'bold')).grid(column=0, row=0, sticky=W)
     txt_input1 = Entry(solveWin, width=40)
     txt_input1.grid(column=0, row=1, sticky=W)
-    Label(solveWin, text="Введите генеральное среднее:").grid(column=0, row=2, sticky=W)
+    Label(solveWin, text="Введите генеральное среднее:",
+          font=('Franklin Gothic Medium Cond', 10, 'bold')).grid(column=0, row=2, sticky=W)
     txt_input2 = Entry(solveWin, width=5)
     txt_input2.grid(column=0, row=3, sticky=W)
-    Button(solveWin, text="Решить", command=solve2).place(x=38, y=57)
+    Button(solveWin, text="Решить", command=solve2).place(x=35, y=59)
 
 
 def solve3win():
@@ -601,7 +616,8 @@ def solve3win():
     solveWin = Toplevel(window)
     solveWin.title("Несмещённая оценка дисперсии D(X) по значениям выборки")
     solveWin.geometry('600x80')
-    Label(solveWin, text="Введите значения выборки через точку с запятой:").grid(column=0, row=0, sticky=W)
+    Label(solveWin, text="Введите значения выборки через точку с запятой:",
+          font=('Franklin Gothic Medium Cond', 10, 'bold')).grid(column=0, row=0, sticky=W)
     txt_input = Entry(solveWin, width=40)
     txt_input.grid(column=0, row=1, sticky=W)
     Button(solveWin, text="Решить", command=solve3).place(x=245, y=18)
